@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Hizkia Ginting</title>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47692315-56"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-47692315-56');
+	</script>
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Russo+One&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+	<link id="theme-style" rel="stylesheet" type="text/css" href="">
+</head>
+<body>
+
+	<section class="s1"  style="height: 100vh;">
+		<div class="main-container">
+			<div class="greeting-wrapper">
+				<h1>Hi, I'm Hizkia Sebastian Ginting</h1>
+			</div>
+
+
+			<div class="intro-wrapper">
+				{% include 'base/navbar.html' %}
+
+				<div class="left-column">
+					<img id="profile_pic" src="{% static 'images/hizkia.png' %}">
+					<h5 style="text-align: center;line-height: 0;"></h5>
+
+					<div id="theme-options-wrapper">
+						<div data-mode="light" id="light-mode" class="theme-dot"></div>
+						<div data-mode="blue" id="blue-mode" class="theme-dot"></div>
+						<div data-mode="green" id="green-mode" class="theme-dot"></div>
+						<div data-mode="purple" id="purple-mode" class="theme-dot"></div>
+					</div>
+				</div>
+
+				<div class="right-column">
+					<div id="preview-shadow">
+						<div id="preview">
+							<div id="corner-tl" class="corner"></div>
+							<div id="corner-tr" class="corner"></div>
+							<h3>What I Do</h3>
+							<p>I am currently a Computer Science student and Teaching Assistant at Universitas Indonesia</p>
+							<div id="corner-br" class="corner"></div>
+							<div id="corner-bl" class="corner"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="s2" style="height: 100vh;">
+
+		<div class="main-container">
+			<a name="project"></a>
+
+			<div class="about-wrapper">
+				
+				<div class="about-me">
+					<a href="{% url 'home' %}">
+						<div class="dots-wrapper">
+							<div id="dot-1" class="browser-dot"></div>
+							<div id="dot-2" class="browser-dot"></div>
+							<div id="dot-3" class="browser-dot"></div>
+						</div>
+					</a>
+					<h4>More about me</h4>
+					<p>Dedicated to mastering data science and programming, I currently focus on data and business analytics,
+						and machine learning. My determination to learn, adapt, and achieve drives my journey. Excited to bring
+						expertise in platform based programming and a growing interest in data science to roles valuing innovation and problem solving.</p>
+
+					<hr>
+					<h4>TOP EXPERTISE</h4>
+					<p>Fullstack developer with primary focus on Django + React: <a target="_blank" href="{% static 'resume.pdf' %}">Download Resume</a></p>
+					<div id="skills">
+						<ul>
+							<li><b>Languages:</b></li>
+							<li>Python</li>
+							<li>Java</li>
+							<li>Dart</li>
+							<li>Golang</li>
+							<li>JavaScript</li>
+							<li>PostgreSQL</li>
+						</ul>
+
+						<ul>
+							<li><b>Technologies:</b></li>
+							<li>Matplotlib</li>
+							<li>Seaborn</li>
+							<li>Pandas</li>
+							<li>NumPy</li>
+							<li>Scikit-learn</li>
+							<li>PyTorch</li>
+						</ul>
+						<ul>
+							<li><b>Dev Tools:</b></li>
+							<li>AWS</li>
+							<li>GCP</li>
+							<li>Android Studio</li>
+						</ul>
+					</div>
+
+				</div>
+
+				
+				<div class="social-links">
+					<h5>Top 4 Project</h5>
+					<div class="project-cards-container">
+						<div class="project-card">
+							<h6>SMS Spam Classification</h6>
+							<img src="{% static 'images/spam.png' %}" alt="Project 1 Image">
+							<p></p>
+							<a target="_blank" href="https://github.com/yourusername/project1">GitHub Repo</a>
+						</div>
+						<div class="project-card">
+							<h6>President Face Recognition</h6>
+							<img src="{% static 'images/hizkia.png' %}" alt="Project 1 Image">
+							<p>Project 1 Description goes here. Lorem ipsum dolor sit amet...</p>
+							<a target="_blank" href="https://github.com/yourusername/project1">GitHub Repo</a>
+						</div>
+	
+						<div class="project-card">
+							<h6>SE using BM25 & LightGbm</h6>
+							<img src="{% static 'images/search.jpg' %}" alt="Project 2 Image">
+							<p>Project 2 Description goes here. Lorem ipsum dolor sit amet...</p>
+							<a target="_blank" href="https://github.com/yourusername/project2">GitHub Repo</a>
+						</div>
+						<div class="project-card">
+							<h6>Wazzt: Waste Bank App</h6>
+							<img src="{% static 'images/logogelap.png' %}" alt="Project 2 Image">
+							<p>Project 2 Description goes here. Lorem ipsum dolor sit amet...</p>
+							<a target="_blank" href="https://github.com/yourusername/project2">GitHub Repo</a>
+						</div>
+	
+						<!-- Add two more project cards similarly -->
+					</div>
+					<h3>Find me on Linkedin & Github</h3>
+					<a target="_blank" href="https://www.youtube.com/c/dennisivy">YouTube: @DennisIvy</a>
+					<br>
+					<a target="_blank" href="https://twitter.com/dennisivy11">Twitter: @DennisIvy11</a>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<section class="s2" style="height: 100vh;">
+		<a href="{% url 'home' %}">
+			<div class="dots-wrapper">
+				<div id="dot-1" class="browser-dot"></div>
+				<div id="dot-2" class="browser-dot"></div>
+				<div id="dot-3" class="browser-dot"></div>
+			</div>
+		</a>
+		<div class="main-container">
+			<a href=""></a>
+			<h3 style="text-align: center;">Get In Touch</h3>
+
+			<form id="contact-form" method="POST" action="{% url 'send_email' %}">
+				{% csrf_token %}
+				<a name="contact"></a>
+
+				<label>Name</label>
+				<input required class="input-field" type="text" name="name">
+
+				<label>Subject</label>
+				<input required class="input-field" type="text" name="subject">
+
+				<label>Email</label>
+				<input required class="input-field" type="text" name="email">
+
+				<label>Message</label>
+				<textarea required class="input-field" name="message"></textarea>
+
+				<input id="submit-btn" type="submit" value="Send">
+			</form>
+		</div>
+	</section> 
+
+	<script type="text/javascript">
+		let static = "{% static 'css' %}"
+	</script>
+
+	<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

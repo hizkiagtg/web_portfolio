@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <title>SMS Classification</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Russo+One&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+    <link id="theme-style" rel="stylesheet" type="text/css" href="">
+</head>
+<body>
+
+    <section class="s1" style="height: 100vh;">
+        <div class="main-container">
+            <div class="greeting-wrapper">
+                <h3>Indonesian SMS Spam Classification</h3>
+            </div>
+
+            <div class="intro-wrapper">
+                {% include 'base/navbar.html' %}
+
+                <div class="left-column">
+                    <form id="smsPredictionForm" method="post" data-url="{% url 'classify_sms' %}">
+                        {% csrf_token %}
+                        <h3>Enter SMS:</h3>
+                        <div>
+                            <textarea id="smsInput" name="sms_text" rows="10" cols="50"></textarea>
+                        </div>
+                        <input id="submit-btn" type="submit" value="Classify">
+                    </form>
+                    <p id="result">{{ result }}</p>
+
+                    <div id="theme-options-wrapper">
+                        <div data-mode="light" id="light-mode" class="theme-dot"></div>
+                        <div data-mode="blue" id="blue-mode" class="theme-dot"></div>
+                        <div data-mode="green" id="green-mode" class="theme-dot"></div>
+                        <div data-mode="purple" id="purple-mode" class="theme-dot"></div>
+                    </div>
+                </div>
+
+                <div class="right-column" style="justify-content: center;">
+                    <div id="preview-shadow" style="height: 300px;">
+                        <div id="preview" style="height: 300px;">
+                            <div id="corner-tl" class="corner"></div>
+                            <div id="corner-tr" class="corner"></div>
+                            <h4>Examples</h4>
+                            <p><b>Spam:</b> Daftar dan Sensasional langsung
+                                Petir x500 pasti jatuh
+                                Garansi JP member baru 100%
+                                Dijamin pasti WD 100%
+                                https://bit.ly/3Z5SPcE</p>
+                            <p><b>Non-Spam:</b> Halo, apa kabarmu?</p>
+                            <div id="corner-br" class="corner"></div>
+                            <div id="corner-bl" class="corner"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Links</h3>
+                        <p>GitHub Repository: <a href="https://github.com/yourusername/yourrepository" target="_blank">Link</a></p>
+                        <p>Jupyter Notebook: <a href="https://github.com/yourusername/yourrepository/notebooks/yournotebook.ipynb" target="_blank">Link</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.getElementById("smsPredictionForm");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(form);
+
+            // Make an AJAX request
+            $.ajax({
+                type: form.method,
+                url: form.getAttribute("data-url"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Update the result without refreshing the page
+                    document.getElementById("result").innerHTML = response.result;
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        });
+    });
+    </script>
+
+    <script type="text/javascript">
+        let static = "{% static 'css' %}";
+    </script>
+
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
