@@ -4,17 +4,6 @@
 <head>
 	<title>Hizkia Ginting</title>
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47692315-56"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-47692315-56');
-	</script>
-
-
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
 
 	<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -47,7 +36,6 @@
 						<div data-mode="purple" id="purple-mode" class="theme-dot"></div>
 					</div>
 				</div>
-
 				<div class="right-column">
 					<div id="preview-shadow">
 						<div id="preview">
@@ -86,7 +74,7 @@
 
 					<hr>
 					<h4>TOP EXPERTISE</h4>
-					<p>Fullstack developer with primary focus on Django + React: <a target="_blank" href="{% static 'resume.pdf' %}">Download Resume</a></p>
+					<p>Aspiring Data Scientist with a strong focus on machine learning using Python: <a target="_blank" href="{% static 'resume.pdf' %}">Download Resume</a></p>
 					<div id="skills">
 						<ul>
 							<li><b>Languages:</b></li>
@@ -111,7 +99,11 @@
 							<li><b>Dev Tools:</b></li>
 							<li>AWS</li>
 							<li>GCP</li>
-							<li>Android Studio</li>
+							<li><b>Framework:</b></li>
+							<li>Django</li>
+							<li>Flutter</li>
+							<li>Java Spring Boot</li>
+							
 						</ul>
 					</div>
 
@@ -123,36 +115,46 @@
 					<div class="project-cards-container">
 						<div class="project-card">
 							<h6>SMS Spam Classification</h6>
-							<img src="{% static 'images/spam.png' %}" alt="Project 1 Image">
-							<p></p>
-							<a target="_blank" href="https://github.com/yourusername/project1">GitHub Repo</a>
+							<img src="{% static 'images/spam_3.png' %}" alt="Project 1 Image">
+							<p style="font-size: 12px;">A Django web app utilizing machine learning techniques (SVM) to classify Indonesian SMS messages in real-time, providing an intuitive interface for spam detection.</p>
+							<a target="_blank" href="{% url 'spam_classification' %}">Link</a>
 						</div>
 						<div class="project-card">
-							<h6>President Face Recognition</h6>
-							<img src="{% static 'images/hizkia.png' %}" alt="Project 1 Image">
-							<p>Project 1 Description goes here. Lorem ipsum dolor sit amet...</p>
-							<a target="_blank" href="https://github.com/yourusername/project1">GitHub Repo</a>
+							<h6>Face Recognition</h6>
+							<img src="{% static 'images/face.png' %}" alt="Project 1 Image">
+							<p style="font-size: 12px;">Web-based Face Recognition system employing deep learning algorithms to identify individuals through facial features in an online environment.</p>
+							<a target="_blank" href="">Link (TBA)</a>
 						</div>
 	
 						<div class="project-card">
 							<h6>SE using BM25 & LightGbm</h6>
-							<img src="{% static 'images/search.jpg' %}" alt="Project 2 Image">
-							<p>Project 2 Description goes here. Lorem ipsum dolor sit amet...</p>
-							<a target="_blank" href="https://github.com/yourusername/project2">GitHub Repo</a>
+							<img src="{% static 'images/search.png' %}" alt="Project 2 Image">
+							<p style="font-size: 12px;">Search Engine project employing BM25 for initial ranking and LightGBM (LambdaMART) for advanced re-ranking, enhancing search result precision and relevance.</p>
+							<a target="_blank" href="https://github.com/hizkiagtg/Ranking">GitHub Repo</a>
 						</div>
 						<div class="project-card">
 							<h6>Wazzt: Waste Bank App</h6>
-							<img src="{% static 'images/logogelap.png' %}" alt="Project 2 Image">
-							<p>Project 2 Description goes here. Lorem ipsum dolor sit amet...</p>
-							<a target="_blank" href="https://github.com/yourusername/project2">GitHub Repo</a>
+							<img src="{% static 'images/logo.png' %}" alt="Project 2 Image">
+							<p style="font-size: 12px;">Wazzt: A Waste Bank App connecting Flutter mobile and Django web platforms for streamlined waste management and recycling with a user-friendly interface.</p>
+							<a target="_blank" href="https://github.com/syadzaarrana/PBP-A09">GitHub Repo</a>
 						</div>
 	
 						<!-- Add two more project cards similarly -->
 					</div>
-					<h3>Find me on Linkedin & Github</h3>
-					<a target="_blank" href="https://www.youtube.com/c/dennisivy">YouTube: @DennisIvy</a>
-					<br>
-					<a target="_blank" href="https://twitter.com/dennisivy11">Twitter: @DennisIvy11</a>
+					<div class="contact-section">
+						<h4>Contact Me: </h4>
+						<div class="link-icons">
+							<a target="_blank" href="https://www.linkedin.com/in/hizkia-sebastian">
+								<img src="{% static 'images/linkedin-icon.png' %}" alt="LinkedIn" style = "width: 40px;">
+							</a>
+							<a target="_blank" href="mailto:your.email@example.com">
+								<img src="{% static 'images/email-icon.png' %}" alt="Email" style = "width: 40px;">
+							</a>
+							<a target="_blank" href="https://github.com/hizkiagtg">
+								<img src="{% static 'images/github-icon.png' %}" alt="GitHub" style = "width: 40px;">
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 

@@ -63,8 +63,8 @@ def spam_classification(request):
 
 def classify(res):
     if res == 1:
-        return 'Pesan ini adalah SPAM'
-    return 'Pesan ini bukan SPAM'
+        return 'This message is SPAM'
+    return 'This message is not SPAM'
 
 def classify_sms(request):
     result = None

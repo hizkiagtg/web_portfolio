@@ -230,8 +230,8 @@ h6 { font-size: 16px;}
 	display: block;
 	margin:0 auto;
 
-	height: 200px;
-	width: 200px;
+	height: 230px;
+	width: 230px;
 	object-fit: cover;
 	border:2px solid var(--borderColor);
 }
@@ -297,9 +297,11 @@ h6 { font-size: 16px;}
 
 
 #preview-shadow{
+	margin-top: -30px; 
+    margin-left: 60px;
 	background-color: var(--previewShadow);
 	max-width: 300px;
-	height: 180px;
+	height: 230px;
 	padding-left: 30px;
 	padding-top: 30px;
 	box-sizing: border-box;
@@ -307,6 +309,7 @@ h6 { font-size: 16px;}
 
 #preview{
 	width: 300px;
+	height: 230px;
 	border:1.5px solid #17a2b8;
 	background-color: var(--previewBg);
 	padding:15px;
@@ -556,27 +559,78 @@ h6 { font-size: 16px;}
 }
 
 
-#smsInput {
-    width: 100%;
+#smsPredictionForm {
+    max-width: 400px;
+    margin: auto;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    background-color: var(--secondaryColor);
+    border-radius: 4px;
 }
 
-#smsPredictionForm button {
-    background-color: #4CAF50;
-    color: rgb(67, 32, 32);
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 12px;
+    color: var(--mainText);
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 7px;
+    box-sizing: border-box;
+	resize: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+	color: #4b5156;
+}
+
+#submit-btn {
+    background-color:var(--previewShadow);
+    color: var(--mainText);
     padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+}
+
+#submit-btn:hover {
+    background-color:var(--mainColor);
 }
 
 #result {
-    margin-top: 10px;
-    font-size: 18px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--mainText);
+}
+#result {
+    text-align: center;
+	height: 50px; /* Set a fixed height */
+	overflow: hidden; /* Hide overflow content if it exceeds the fixed height */
 }
 
+.contact-section {
+    text-align: center;
+}
+.contact-section h4 {
+    margin-bottom: 15px; /* Adjust the margin as needed */
+}
+
+.link-icons {
+    margin-block-start: 0px; /* Adjust spacing between title and icons */
+	margin-block-end: 0px;
+}
+
+.link-icons a {
+    display: inline-block;
+    margin: 0 30px;  /* Adjust spacing between icons */
+}
+
+.link-icons a img {
+    width: 40px;  /* Adjust the icon size */
+    height: auto;  /* Make the icons circular if needed */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.link-icons a:hover img {
+    opacity: 0.8;
+}
