@@ -92,7 +92,7 @@ def sendEmail(request):
 			request.POST['subject'],
 			template,
 			settings.EMAIL_HOST_USER,
-			['haitian623@gmail.com']
+			['hizkia.sebastian@ui.ac.id']
 			)
 
 		email.fail_silently=False
