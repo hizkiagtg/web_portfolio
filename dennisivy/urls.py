@@ -1,7 +1,7 @@
 """dennisivy URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+    https://docs.djangoproject.com/en/5.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -18,25 +18,56 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
+# Admin customization
+admin.site.site_header = "Portfolio Admin"
+admin.site.site_title = "Portfolio Admin Portal"
+admin.site.index_title = "Welcome to Portfolio Administration"
 
 urlpatterns = [
+    # Admin
     path('admin/', admin.site.urls),
-    path('', include('base.urls')),
+    
+    # Main website
+    path('', include('apps.core.urls')),
+    
+    # API endpoints
+    path('api/portfolio/', include('apps.portfolio.urls')),
+    path('api/ml/', include('apps.ml_service.urls')),
+    
+    # API Documentation
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    
+    # CKEditor
     path('ckeditor/', include('ckeditor_uploader.urls')),
-
-    #1
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name="password_reset.html"), name="password_reset"),
-
-    #Where can I find OR set theses paths these values
-    #2
-    path('password_reset_done/', 
-        auth_views.PasswordResetDoneView.as_view(template_name="email_sent.html"),name="password_reset_done"),
-    #3
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="reset.html"), name="password_reset_confirm"),
-
-    #4
-    path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="reset_complete.html"), name="password_reset_complete"),
+    
+    # Authentication (Password Reset)
+    path('auth/password-reset/', 
+         auth_views.PasswordResetView.as_view(
+             template_name="auth/password_reset.html"
+         ), 
+         name="password_reset"),
+    path('auth/password-reset-done/', 
+         auth_views.PasswordResetDoneView.as_view(
+             template_name="auth/password_reset_done.html"
+         ),
+         name="password_reset_done"),
+    path('auth/reset/<uidb64>/<token>/', 
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name="auth/password_reset_confirm.html"
+         ), 
+         name="password_reset_confirm"),
+    path('auth/password-reset-complete/', 
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name="auth/password_reset_complete.html"
+         ), 
+         name="password_reset_complete"),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
