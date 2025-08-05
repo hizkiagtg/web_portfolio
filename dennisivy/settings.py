@@ -27,13 +27,19 @@ env = environ.Env(
 # Take environment variables from .env file
 environ.Env.read_env(BASE_DIR / '.env')
 
+# Vercel specific environment handling
+import os
+if os.environ.get('VERCEL'):
+    DEBUG = False
+    ALLOWED_HOSTS = ['*']  # Vercel handles this
+else:
+    DEBUG = env('DEBUG')
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY', default='hrj48*mobkzo)s6q+2wfqcg=_=@5c38n&sb4_vlp#bb^zyp_pi')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+# DEBUG and ALLOWED_HOSTS are handled above for Vercel compatibility
 
 # Application definition
 DJANGO_APPS = [
@@ -83,7 +89,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if env('RATELIMIT_ENABLE'):
+# Disable ratelimit for Vercel as it may cause issues
+if not os.environ.get('VERCEL') and env('RATELIMIT_ENABLE', default=False):
     MIDDLEWARE.append('django_ratelimit.middleware.RatelimitMiddleware')
 
 ROOT_URLCONF = 'dennisivy.urls'
@@ -111,9 +118,19 @@ WSGI_APPLICATION = 'dennisivy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': env.db()
-}
+# Default to SQLite for development and Vercel
+if os.environ.get('VERCEL'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # Use django-environ for local development
+    DATABASES = {
+        'default': env.db(default='sqlite:///db.sqlite3')
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -146,9 +163,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+
+# Only add static dirs if they exist
+STATICFILES_DIRS = []
+if (BASE_DIR / 'static').exists():
+    STATICFILES_DIRS.append(BASE_DIR / 'static')
 
 # Media files
 MEDIA_URL = '/media/'
@@ -234,17 +253,27 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     X_FRAME_OPTIONS = 'DENY'
 
-# Caching (Redis)
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": env('REDIS_URL', default='redis://127.0.0.1:6379/1'),
+# Caching Configuration
+if os.environ.get('VERCEL'):
+    # Use local memory cache for Vercel
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        }
     }
-}
-
-# Session Configuration
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-SESSION_CACHE_ALIAS = 'default'
+    # Use database sessions for Vercel
+    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+else:
+    # Use Redis for local development if available
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": env('REDIS_URL', default='redis://127.0.0.1:6379/1'),
+        }
+    }
+    # Session Configuration
+    SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+    SESSION_CACHE_ALIAS = 'default'
 
 # Logging Configuration
 LOGGING = {
@@ -288,20 +317,26 @@ LOGGING = {
 }
 
 # Sentry Configuration (Error Monitoring)
-sentry_dsn = env('SENTRY_DSN', default=None)
-if sentry_dsn:
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-    from sentry_sdk.integrations.logging import LoggingIntegration
-    
-    sentry_logging = LoggingIntegration(
-        level=logging.INFO,
-        event_level=logging.ERROR
-    )
-    
-    sentry_sdk.init(
-        dsn=sentry_dsn,
-        integrations=[DjangoIntegration(), sentry_logging],
-        traces_sample_rate=1.0,
-        send_default_pii=True
-    )
+# Only enable Sentry if not on Vercel and DSN is provided
+if not os.environ.get('VERCEL'):
+    sentry_dsn = env('SENTRY_DSN', default=None)
+    if sentry_dsn:
+        try:
+            import sentry_sdk
+            from sentry_sdk.integrations.django import DjangoIntegration
+            from sentry_sdk.integrations.logging import LoggingIntegration
+            import logging
+            
+            sentry_logging = LoggingIntegration(
+                level=logging.INFO,
+                event_level=logging.ERROR
+            )
+            
+            sentry_sdk.init(
+                dsn=sentry_dsn,
+                integrations=[DjangoIntegration(), sentry_logging],
+                traces_sample_rate=1.0,
+                send_default_pii=True
+            )
+        except ImportError:
+            pass  # Sentry SDK not installed

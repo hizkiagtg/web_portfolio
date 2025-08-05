@@ -2,8 +2,8 @@
 Django==5.1.4
 djangorestframework==3.15.2
 
-# Database
-psycopg2-binary==2.9.9
+# Database (using SQLite for Vercel, can be changed via env vars)
+# psycopg2-binary==2.9.9  # Commented out for Vercel compatibility
 
 # Static Files & Media
 whitenoise==6.8.2
@@ -23,14 +23,14 @@ django-filter==24.3
 django-environ==0.11.2
 
 # Email
-django-ses==4.1.1
+# django-ses==4.1.1  # Commented out for Vercel
 
-# Cloud Storage (AWS)
-django-storages==1.14.4
-boto3==1.35.69
+# Cloud Storage (AWS) - Optional
+# django-storages==1.14.4  # Commented out for basic deployment
+# boto3==1.35.69  # Commented out for basic deployment
 
-# Web Server
-gunicorn==23.0.0
+# Web Server - Not needed for Vercel
+# gunicorn==23.0.0  # Commented out for Vercel
 
 # Machine Learning
 scikit-learn==1.5.2
@@ -43,24 +43,19 @@ nltk==3.9.1
 mpstemmer @ git+https://github.com/ariaghora/mpstemmer.git
 PySastrawi==1.2.0
 
-# Development & Testing
-pytest==8.3.3
-pytest-django==4.9.0
-pytest-cov==6.0.0
-black==24.10.0
-flake8==7.1.1
-isort==5.13.2
-
 # Security
 django-cors-headers==4.6.0
-django-ratelimit==4.1.0
+# django-ratelimit==4.1.0  # Commented out for Vercel
 
 # Monitoring & Logging
-sentry-sdk==2.18.0
+# sentry-sdk==2.18.0  # Commented out for basic deployment
 
-# Task Queue (optional for async tasks)
-celery==5.4.0
-redis==5.2.0
+# Task Queue - Not needed for Vercel serverless
+# celery==5.4.0  # Commented out for Vercel
+# redis==5.2.0  # Commented out for Vercel
 
 # API Documentation
 drf-spectacular==0.27.2
+
+# Additional packages for Vercel
+python-decouple==3.8
